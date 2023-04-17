@@ -2,8 +2,10 @@
 #include<conio.h>
 #include<time.h>
 #include"Help.h"
+#include<windows.h>
 using namespace std;
 void DestroyerGemExplosion(int board[][8], int row, int col);
+
 //This function prints the current time and score on screen, we call it repeatedly so the score always stays updates on screen.
 void printTime(int& starttime, int& score)
 {
@@ -34,7 +36,7 @@ void Gem(int x, int y, int boardvalue)
 	else if (boardvalue == 3 || boardvalue == 4 || boardvalue == 5)//Pink square gemstone
 	{
 		if (boardvalue == 4)
-			myRectangle(x - 3, y - 3, x + 33, y + 33, 255, 0, 255);
+			myRectangle(x - 3, y - 3, x + 33, y + 33, 255, 255, 255);
 		else if (boardvalue == 5)
 			myRectangle(x - 5, y - 5, x + 35, y + 35, 255, 0, 0);
 		myRectangle(x + 15, y, x + 30, y + 30, 255, 100, 255);
@@ -531,6 +533,11 @@ void Movecandy(int board[][8], int userinput, int x, int y, int& time, int& scor
 
 int main()
 {
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO     cursorInfo;
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = 0; // set the cursor visibility
+	SetConsoleCursorInfo(out, &cursorInfo);
 	srand(time(0));
 	bool isenterpressed = 0, waitforkey = 0, iselbowpresent = 0, preventerpressed = 1;
 	int board[8][8], columntilecheck = 0, rowtilecheck = 0, emptycheck = 0, rowindex = 5, columnindex = 5, userinput = 0, timestart = 0, timeend = 0, score = 0;
@@ -729,5 +736,4 @@ int main()
 	}
 	cout << "GAME OVER\nUser achieved Score of " << score << " in 60 seconds";//At the end of the program we print the score and wait 10 seconds so user does not end up closing console
 	Sleep(10000);
-	return 0;
 }
