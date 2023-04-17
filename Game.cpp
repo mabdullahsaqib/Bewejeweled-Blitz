@@ -534,7 +534,7 @@ void Movecandy(int board[][8], int userinput, int x, int y, int& time, int& scor
 int main()
 {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO     cursorInfo;
+	CONSOLE_CURSOR_INFO cursorInfo;
 	GetConsoleCursorInfo(out, &cursorInfo);
 	cursorInfo.bVisible = 0; // set the cursor visibility
 	SetConsoleCursorInfo(out, &cursorInfo);
@@ -542,7 +542,7 @@ int main()
 	bool isenterpressed = 0, waitforkey = 0, iselbowpresent = 0, preventerpressed = 1;
 	int board[8][8], columntilecheck = 0, rowtilecheck = 0, emptycheck = 0, rowindex = 5, columnindex = 5, userinput = 0, timestart = 0, timeend = 0, score = 0;
 	int selectionrectx = 555, selectionrecty = 65;
-	for (int i = 0; i < 8; i++)                                     //We use the rand function to populate the board with random integers 0,3,6,9,12 during the beginning of the game
+	for (int i = 0; i < 8; i++) //We use the rand function to populate the board with random integers 0,3,6,9,12 during the beginning of the game
 		for (int j = 0; j < 8; j++)
 			board[i][j] = (rand() % 5) * 3;
 	//Background
@@ -649,8 +649,8 @@ int main()
 	}
 	//Board
 	Tiles(board);
-	timestart = time(0);        //We use the timestart and timeend variables to make the loop run for exactly 1 minute giving us 1 minute to play the game
-	while (time(0) - timestart <= 60)                               //Loop runs for 1 minute and is used to exit the game
+	timestart = time(0); //We use the timestart and timeend variables to make the loop run for exactly 1 minute giving us 1 minute to play the game
+	while (time(0) - timestart <= 60) //Loop runs for 1 minute and is used to exit the game
 	{
 		printTime(timestart, score);
 		rowtilecheck = 0;
@@ -658,12 +658,12 @@ int main()
 		emptycheck = 0;
 		waitforkey = 0;                                               //We check for any elbows first, if no elbows then check for any 3 in a row or column and store that index in rowindex and columnindex variables		             
 		if (CheckforElbow(board) == 0)                                //Redraw board after rows and columns have been checked and marked as empty, We only redraw if the user pressed 
-			CheckforMatch(board, rowtilecheck, columntilecheck);      //enter last turn since that is the only case where the Gems are going to move
+			CheckforMatch(board, rowtilecheck, columntilecheck);      //Enter last turn since that is the only case where the Gems are going to move
 		if (preventerpressed)
 			Tiles(board);
-		if (Dropcolumns(board, score, timestart))                                  //We use the dropcolumns command to drop new gems into any of the empty spaces 
-			Sleep(100);                                          //If the user pressed enter last turn we redraw board when tiles are dropped and random value is added and print	
-		if (preventerpressed)                                //selection rectangle again, Otherwise we simply print the checker pattern and selection rectangle
+		if (Dropcolumns(board, score, timestart)) //We use the dropcolumns command to drop new gems into any of the empty spaces 
+			Sleep(100);                           //If the user pressed enter last turn we redraw board when tiles are dropped and random value is added and print	
+		if (preventerpressed)                     //selection rectangle again, Otherwise we simply print the checker pattern and selection rectangle
 			Tiles(board);
 		else
 			CheckerPattern();
